@@ -8,10 +8,10 @@ Page({
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
-  //跳转登陆页面
-  login: function() {
-    wx.navigateTo({
-      url: '../Login/login'
+  //进入系统
+  accountman: function() {
+    wx.switchTab({
+      url: '../AccountMan/accountman',
     })
   },
 

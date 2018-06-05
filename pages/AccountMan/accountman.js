@@ -1,4 +1,4 @@
-// pages/Login/login.js
+// pages/AccountMan/accountman.js
 Page({
 
   /**
@@ -8,11 +8,17 @@ Page({
   
   },
 
+  //返回首页
+  index:function(){
+    wx.redirectTo({
+      url: '../index/index',
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+  
   },
 
   /**

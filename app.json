@@ -1,13 +1,27 @@
 {
   "pages":[
     "pages/index/index",
+    "pages/AccountMan/accountman",
+    "pages/InterfaceMan/interfaceman",
+    "pages/PersonalCenter/personalcenter",
     "pages/Login/login",
     "pages/Tester/tester"
   ],
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "",
     "navigationBarTextStyle":"black"
+  },
+  "tabBar": {
+    "list": [
+      {
+      "pagePath": "pages/AccountMan/accountman",
+      "text":"账号管理"
+      },{
+      "pagePath": "pages/InterfaceMan/interfaceman",
+      "text":"接口管理"
+      }
+    ]
   }
 }

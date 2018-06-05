@@ -10,6 +10,23 @@ App({
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
+        wx.request({
+          url: 'http://www.lsqin.top/getOpenId',
+          data:{
+            code:res.code
+          },
+          method:"POST",
+          success:res =>{
+            if(res.data['session_key']&&res.data['openid']){
+              wx.setStorageSync("session_key", res.data['session_key'])
+              wx.setStorageSync("openid", res.data['openid'])
+            }else{
+              wx.showLoading({
+                title: '获取失败',
+              })
+            }
+          }
+        })
       }
     })
     // 获取用户信息

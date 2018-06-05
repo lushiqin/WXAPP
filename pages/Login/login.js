@@ -1,4 +1,5 @@
 // pages/Login/login.js
+const config = require("../../config.js").interfaceList
 Page({
 
   /**
@@ -7,6 +8,90 @@ Page({
   data: {
   
   },
+
+  //获取验证码进行登陆
+  login:function(e){
+    //获取验证码
+    var phone = e.detail.value.phone
+    wx.request({
+      url: config.host + config.getcodeinterface,
+      method:"GET",
+      data:{
+        phone:phone
+      },
+      success:function(res){
+        //判断是否有图形验证码
+        if(res.data.data.numCode){
+          //使用图形验证码重新获取验证码
+          wx.request({
+            url: config.host+config.getcodeinterface,
+            method: "GET",
+            data: {
+              phone:phone,
+              numCode:res.data.data.numCode
+            },
+            success:function(res){
+              //登陆系统
+              wx.request({
+                url: config.host+config.logininterface,
+                method:"POST",
+                data:{
+                  phone:phone,
+                  phoneCode: res.data.data.phoneCodeTest,
+                  deviceNum:"ios",
+                  deviceName:"iphone x",
+                  loginAddress:"sz"
+                },
+                success:function(e){
+                  //判断是否登陆成功取到token
+                  if (e.data.data.token){
+                    wx.showToast({
+                      title: '获取成功',
+                    })
+                    wx.setStorageSync("token", e.data.data.token)
+                    wx.switchTab({
+                      url: '../AccountMan/accountman',
+                    })
+                  }else{
+                    wx.showToast({
+                      title: '登陆失败',
+                    })
+                  }
+                }
+              })
+            }
+          })
+        }else{
+          //没有图形验证码
+            wx.request({
+                url: config.host+config.logininterface,
+                method:"POST",
+                data:{
+                  phone:phone,
+                  phoneCode: res.data.data.phoneCodeTest,
+                },
+                success:function(e){
+                  //判断是否登陆成功获取到token
+                  if (e.data.data.token) {
+                    wx.showToast({
+                      title: '获取成功',
+                    })
+                    wx.setStorageSync("token", e.data.data.token)
+                    wx.switchTab({
+                      url: '../AccountMan/accountman',
+                    })
+                  } else {
+                    wx.showToast({
+                      title: '登陆失败',
+                    })
+                  }
+                }
+              })
+        }
+      }
+    })
+  },
+
 
   /**
    * 生命周期函数--监听页面加载

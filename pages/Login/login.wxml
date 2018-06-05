@@ -1,2 +1,7 @@
 <!--pages/Login/login.wxml-->
-<text>pages/Login/login.wxml</text>
+<view class='logincontent'>
+  <form bindsubmit='login'>
+    <input name = 'phone' placeholder='手机号码'></input>
+    <button formType = 'submit'>登陆</button>
+  </form>
+</view>

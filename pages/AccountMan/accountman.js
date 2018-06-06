@@ -14,6 +14,13 @@ Page({
       url: '../index/index',
     })
   },
+  //切换账号
+  switchUser:function(){
+    wx.redirectTo({
+      url: '../Login/login',
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */

@@ -1,2 +1,5 @@
 <!--pages/AccountMan/accountman.wxml-->
-<button bindtap='index'>进入首页</button>
+<view class='nav'>
+  <button bindtap='switchUser'>切换账号</button>
+  <button bindtap='index'>进入首页</button>
+</view>

@@ -1,1 +1,29 @@
 /* pages/Login/login.wxss */
+.logincontent{
+  background-color: olive;
+  padding: 15px;
+  margin: 5px;
+  height: 200px;
+  border-radius: 5px;
+}
+ input{
+  height: 50px;
+  background-color: oldlace;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  padding: 10px;
+  text-align: center;
+  line-height: 50px;
+  border-radius: 10px;
+}
+ button{
+  background-color: orange;
+}
+
+.tokencenter{
+  background-color: fuchsia;
+  padding: 15px;
+  margin: 5px;
+  height: 200px;
+  border-radius: 5px;
+}

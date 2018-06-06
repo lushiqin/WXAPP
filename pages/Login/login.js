@@ -10,7 +10,7 @@ Page({
   },
 
   //获取验证码进行登陆
-  login:function(e){
+  toLogin:function(e){
     //获取验证码
     var phone = e.detail.value.phone
     wx.request({
@@ -87,6 +87,34 @@ Page({
                   }
                 }
               })
+        }
+      }
+    })
+  },
+
+
+  //直接获取token信息
+  getToken:function(e){
+    var phone = e.detail.value.phone
+    wx.request({
+      url: config.slhost+config.maketoken,
+      method:"GET",
+      data:{
+        phone:phone
+      },
+      success:function(res){
+        if(res.data.token){
+          wx.showToast({
+            title: '获取成功',
+          })
+          wx.setStorageSync("token", res.data.token)
+          wx.switchTab({
+            url: '../AccountMan/accountman',
+          })
+        }else{
+          wx.showToast({
+            title: '获取失败',
+          })
         }
       }
     })

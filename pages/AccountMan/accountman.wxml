@@ -1,5 +1,15 @@
 <!--pages/AccountMan/accountman.wxml-->
-<view class='nav'>
+<view class='navs'>
   <button bindtap='switchUser'>切换账号</button>
   <button bindtap='index'>进入首页</button>
+</view>
+
+<view class='content'>
+  <text>acUuid:{{data.acUuid}}</text>
+  <image class='userImg' src='{{data.avatar}}'></image>
+  <text>district:{{data.district.province.name}}{{data.district.city.name}}{{data.district.area.name}}</text>
+  <text>examType:{{data.examType.name}}</text>
+  <text>nickname:{{data.nickname}}</text>
+  <text>occupation:{{data.occupation.name}}</text>
+  <text>userId:{{data.userId}}</text>
 </view>

@@ -1,2 +1,16 @@
 <!--pages/InterfaceMan/interfaceman.wxml-->
-<text>pages/InterfaceMan/interfaceman.wxml</text>
+<view>
+  <form bindsubmit='addinterface'>
+    <input name="interName" placeholder='接口名称'></input>
+    <input name="interUrl" placeholder='接口地址'></input>
+    <button formType="submit">新增</button>
+  </form>
+</view>
+
+<view>
+  <view wx:for="{{data}}" wx:key="{{item.nameUrl}}">
+    <form bindsubmit='reqInter' report-submit='True'>
+      <button formType="submit" data-inter='{{item.addressUrl}}'>{{item.nameUrl}}</button>
+    </form>
+  </view>
+</view>

@@ -6,7 +6,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-  
   },
 
   //获取验证码进行登陆
@@ -48,10 +47,11 @@ Page({
                     wx.showToast({
                       title: '获取成功',
                       success:function(){
-                        wx.setStorageSync("token", e.data.data.token)
-                        wx.switchTab({
-                          url: '../AccountMan/accountman',
+                        
+                        wx.showLoading({
+                          title: '',
                         })
+                        wx.setStorageSync("token", e.data.data.token)
                         wx.request({
                           url: config.myhost + config.addUser,
                           method: "POST",
@@ -65,6 +65,12 @@ Page({
                             console.log(res.data)
                           }
                         })
+                        setTimeout(function () {
+                          wx.hideLoading()
+                          wx.switchTab({
+                            url: '../AccountMan/accountman',
+                          })
+                        }, 2000)
                       }
                     })
                   }else{
@@ -91,12 +97,11 @@ Page({
                     wx.showToast({
                       title: '获取成功',
                       success:function(){
+                       
+                        wx.showLoading({
+                          title: '',
+                        })
                         wx.setStorageSync("token", e.data.data.token)
-                        setTimeout(function () {
-                          wx.switchTab({
-                            url: '../AccountMan/accountman',
-                          })
-                        }, 2000)
                       }
                     })
                     
@@ -113,6 +118,12 @@ Page({
                         console.log(res.data)
                       }
                     })
+                    setTimeout(function () {
+                      wx.hideLoading()
+                      wx.switchTab({
+                        url: '../AccountMan/accountman',
+                      })
+                    }, 2000)
                   } else {
                     wx.showToast({
                       title: '登陆失败',
@@ -140,6 +151,9 @@ Page({
           wx.showToast({
             title: '获取成功',
           })
+          wx.showLoading({
+            title: '',
+          })
           wx.setStorageSync("token", res.data.token)
           wx.request({
             url: config.myhost + config.addUser,
@@ -154,11 +168,12 @@ Page({
               console.log(res.data)
             }
           })
-          setTimeout(function(){
+          setTimeout(function () {
+            wx.hideLoading()
             wx.switchTab({
               url: '../AccountMan/accountman',
             })
-          },2000)
+          }, 2000)
 
         }else{
           wx.showToast({
@@ -169,17 +184,38 @@ Page({
     })
   },
 
+  //切换账号
+  switchPhone:function(e){
+    wx.setStorageSync("token", e.currentTarget.dataset.token)
+    if(wx.getStorageSync("token")){
+      wx.showLoading({
+        title: '',
+      })
+      setTimeout(function () {
+        wx.hideLoading()
+        wx.switchTab({
+          url: '../AccountMan/accountman',
+        })
+      }, 2000)
+
+    }
+  },
+
+
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var that = this
     wx.removeStorageSync("token")
     wx.request({
       url: config.myhost+config.getUsers,
       method:"GET",
       success:function(res){
-        console.log(res.data)
+        that.setData({
+          data:res.data
+        })
       }
     })
   },

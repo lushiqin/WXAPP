@@ -14,12 +14,16 @@ module.exports = {
     getHost:"/secHost",
     addUser:"/addUser",
     addHost:"/addHost",
+    addInter:"/addInter",
+    secInter:"/secInter",
 
 
     //获取验证码
     getcodeinterface: "/api/getCode",
     //登陆
     logininterface: "/api/login",
+    // 获取用户详细信息
+    userInfo:"/api/userInfo",
 
     //根据手机号码获取token
     maketoken:"/index.php/Admin/Setting/make",

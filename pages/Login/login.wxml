@@ -2,13 +2,19 @@
 <view class='logincontent'>
   <form bindsubmit='toLogin'>
     <input name = 'phone' placeholder='手机号码'></input>
-    <button name = "login" formType = 'submit'>登陆</button>
+    <button formType = 'submit'>登陆</button>
   </form>
 </view>
 
 <view class='tokencenter'>
   <form bindsubmit='getToken'>
     <input name = 'phone' placeholder='手机号码'></input>
-    <button name = "login" formType = 'submit'>绑定</button>
+    <button formType = 'submit'>绑定</button>
   </form>
+</view>
+
+<view>
+  <view wx:for="{{data}}" wx:key="{{item.phone}}">
+    <button formType='submit' data-token='{{item.token}}' bindtap='switchPhone'>{{item.phone}}</button>
+  </view>
 </view>

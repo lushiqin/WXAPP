@@ -1,4 +1,6 @@
 // pages/AccountMan/accountman.js
+const config = require("../../config.js").interfaceList
+
 Page({
 
   /**
@@ -25,11 +27,21 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var that = this
     //判断是否有token
     if(wx.getStorageSync("token")){
-        wx.showToast({
-          title: '有token',
-        })
+      //获取用户详细信息
+      wx.request({
+        url: config.host+config.userInfo,
+        header:{
+          token:wx.getStorageSync("token")
+        },
+        success:res=>{
+          that.setData({
+            data:res.data.data
+          })
+        }
+      })
     }else{
       wx.redirectTo({
         url: '../Login/login',

@@ -1,4 +1,26 @@
 /* pages/AccountMan/accountman.wxss */
-.nav button{
+.navs{
+  margin-bottom: 25px;
+  height: 50px;
+}
+button{
+  width: 100px;
   float: right;
+  margin: 5px;
+  background-color: rosybrown;
+  border-radius: 8%;
+}
+
+.content{
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  font-size: 25px;
+  overflow: hidden;
+  padding: 5px;
+}
+.userImg{
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
 }

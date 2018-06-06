@@ -1,4 +1,5 @@
 // pages/InterfaceMan/interfaceman.js
+const config = require("../../config.js").interfaceList
 Page({
 
   /**
@@ -8,11 +9,43 @@ Page({
   
   },
 
+  //新增接口数据
+  addinterface:function(e){
+      var interName = e.detail.value.interName
+      var interUrl = e.detail.value.interUrl
+      wx.request({
+        url: config.myhost+config.addInter,
+        data:{
+          interName:interName,
+          interUrl:interUrl
+        },
+        method:"POST",
+        success:res=>{
+          console.log(res.data)
+        }
+      })
+  },
+
+
+
+//请求接口
+  reqInter:function(e){
+    console.log(e)
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    var that = this
+    wx.request({
+      url: config.myhost+config.secInter,
+      success:res=>{
+        that.setData({
+          data:res.data
+        })
+      }
+    })
   },
 
   /**

@@ -1,4 +1,5 @@
 //app.js
+const config = require("/config.js").interfaceList
 App({
   onLaunch: function () {
     // 展示本地存储能力
@@ -11,7 +12,7 @@ App({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
         wx.request({
-          url: 'http://www.lsqin.top/getOpenId',
+          url: config.myhost + config.getOpenId,
           data:{
             code:res.code
           },

@@ -47,10 +47,25 @@ Page({
                   if (e.data.data.token){
                     wx.showToast({
                       title: '获取成功',
-                    })
-                    wx.setStorageSync("token", e.data.data.token)
-                    wx.switchTab({
-                      url: '../AccountMan/accountman',
+                      success:function(){
+                        wx.setStorageSync("token", e.data.data.token)
+                        wx.switchTab({
+                          url: '../AccountMan/accountman',
+                        })
+                        wx.request({
+                          url: config.myhost + config.addUser,
+                          method: "POST",
+                          data: {
+                            name: phone,
+                            phone: phone,
+                            token: e.data.data.token,
+                            status: "1"
+                          },
+                          success: res => {
+                            console.log(res.data)
+                          }
+                        })
+                      }
                     })
                   }else{
                     wx.showToast({
@@ -75,10 +90,28 @@ Page({
                   if (e.data.data.token) {
                     wx.showToast({
                       title: '获取成功',
+                      success:function(){
+                        wx.setStorageSync("token", e.data.data.token)
+                        setTimeout(function () {
+                          wx.switchTab({
+                            url: '../AccountMan/accountman',
+                          })
+                        }, 2000)
+                      }
                     })
-                    wx.setStorageSync("token", e.data.data.token)
-                    wx.switchTab({
-                      url: '../AccountMan/accountman',
+                    
+                    wx.request({
+                      url: config.myhost+config.addUser,
+                      method:"POST",
+                      data:{
+                        name:phone,
+                        phone:phone,
+                        token:e.data.data.token,
+                        status:"1"
+                      },
+                      success:res=>{
+                        console.log(res.data)
+                      }
                     })
                   } else {
                     wx.showToast({
@@ -108,9 +141,25 @@ Page({
             title: '获取成功',
           })
           wx.setStorageSync("token", res.data.token)
-          wx.switchTab({
-            url: '../AccountMan/accountman',
+          wx.request({
+            url: config.myhost + config.addUser,
+            method: "POST",
+            data: {
+              name: phone,
+              phone: phone,
+              token: res.data.token,
+              status: "1"
+            },
+            success: res => {
+              console.log(res.data)
+            }
           })
+          setTimeout(function(){
+            wx.switchTab({
+              url: '../AccountMan/accountman',
+            })
+          },2000)
+
         }else{
           wx.showToast({
             title: '获取失败',
@@ -125,7 +174,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    wx.removeStorageSync("token")
+    wx.request({
+      url: config.myhost+config.getUsers,
+      method:"GET",
+      success:function(res){
+        console.log(res.data)
+      }
+    })
   },
 
   /**

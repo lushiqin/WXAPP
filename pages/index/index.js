@@ -1,6 +1,7 @@
 //index.js
 //获取应用实例
 const app = getApp()
+const config = require("../../config.js").interfaces
 Page({
   data: {
     userInfo: {},
@@ -20,8 +21,25 @@ Page({
       url: '../Tester/tester',
     })
   },
+  //静默获取fromID
+  saveUserFormId:function(res){
+    var formId = res.detail.formId
+    console.log("saveUserFormId", formId)
+  },
+
 
   onLoad: function () {
+    console.log("phone",wx.getStorageSync("phone"))
+    wx.request({
+      url: config.own_host + config.secOneUser,
+      method:"POST",
+      data:{
+        phone: wx.getStorageSync("phone")
+      },
+      success:res=>{
+        console.log(res.data)
+      }
+    })
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,

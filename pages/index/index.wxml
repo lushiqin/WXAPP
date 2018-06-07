@@ -7,8 +7,10 @@
       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     </block>
   </view>
-  <view class='entrance'>
-    <button bindtap='accountman'>进系统</button>
-    <button bindtap='tester'>去玩耍</button>
+  <view  class='entrance'>
+    <form bindsubmit='saveUserFormId' report-submit='true'>
+        <button formType = 'submit' bindtap='accountman'>进系统</button>
+        <button formType = 'submit' bindtap='tester'>去玩耍</button>
+    </form>
   </view>
 </view>

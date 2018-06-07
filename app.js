@@ -1,18 +1,14 @@
 //app.js
-const config = require("/config.js").interfaceList
+const config = require("/config.js").interfaces
 App({
   onLaunch: function () {
-    // 展示本地存储能力
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
 
     // 登录
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
         wx.request({
-          url: config.myhost + config.getOpenId,
+          url: config.own_host + config.getOpenId,
           data:{
             code:res.code
           },
@@ -25,6 +21,7 @@ App({
               wx.showLoading({
                 title: '获取失败',
               })
+              wx.hideLoading()
             }
           }
         })
@@ -50,6 +47,7 @@ App({
         }
       }
     })
+
   },
   globalData: {
     userInfo: null

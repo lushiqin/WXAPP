@@ -1,21 +1,32 @@
 module.exports = {
 
-  interfaceList:{
-    myhost: "http://localhost:8000",
+  interfaces:{
+    own_host: "http://localhost:8000",
     // serverhost: "http://lsqin.top",
     // testhost : "http://sltktest.newgs.net",
     // producthost : "http://sltk.newgs.net",
-    host: "http://sltktest.newgs.net",
-    slhost:"http://examtest.newgs.net",
+    sltk_host: "http://sltktest.newgs.net",
+    sl_host:"http://examtest.newgs.net",
 
     //获取opendi
-    getOpenId: "/getOpenId",
-    getUsers:"/secUser",
-    getHost:"/secHost",
-    addUser:"/addUser",
-    addHost:"/addHost",
-    addInter:"/addInter",
-    secInter:"/secInter",
+    getOpenId:"/getOpenId",
+    addUser: "/addUser",
+    secAllUser: "/secAllUser",
+    secOneUser: "/secOneUser",
+    addUserInfo: "/addUserInfo",
+    secAllInfo: "/secAllInfo",
+    secOneInfo: "/secOneInfo",
+    addFromId: "/addFromId",
+    secOneFromId: "/secOneFromId",
+    addAccessToken: "/addAccessToken",
+    updateAccessToken: "/updateAccessToken",
+    addHost: "/addHost",
+    secAllHost: "/secAllHost",
+    secOneHost: "/secOneHost",
+    addInterface: "/addInterface",
+    secAllInterface: "/secAllInterface",
+    secOneInterface: "/secOneInterface",
+
 
 
     //获取验证码

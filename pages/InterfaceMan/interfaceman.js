@@ -1,5 +1,5 @@
 // pages/InterfaceMan/interfaceman.js
-const config = require("../../config.js").interfaceList
+const config = require("../../config.js").interfaces
 Page({
 
   /**
@@ -14,10 +14,10 @@ Page({
       var interName = e.detail.value.interName
       var interUrl = e.detail.value.interUrl
       wx.request({
-        url: config.myhost+config.addInter,
+        url: config.own_host+config.addInterface,
         data:{
-          interName:interName,
-          interUrl:interUrl
+          interfaceName:interName,
+          interfaceUrl:interUrl
         },
         method:"POST",
         success:res=>{
@@ -39,7 +39,7 @@ Page({
   onLoad: function (options) {
     var that = this
     wx.request({
-      url: config.myhost+config.secInter,
+      url: config.own_host+config.secAllInterface,
       success:res=>{
         that.setData({
           data:res.data

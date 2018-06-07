@@ -1,5 +1,5 @@
 // pages/Login/login.js
-const config = require("../../config.js").interfaceList
+const config = require("../../config.js").interfaces
 Page({
 
   /**
@@ -11,9 +11,10 @@ Page({
   //获取验证码进行登陆
   toLogin:function(e){
     //获取验证码
-    var phone = e.detail.value.phone
+    wx.setStorageSync("phone", e.detail.value.phone)
+    var phone = wx.getStorageSync("phone")
     wx.request({
-      url: config.host + config.getcodeinterface,
+      url: config.sltk_host + config.getcodeinterface,
       method:"GET",
       data:{
         phone:phone
@@ -23,7 +24,7 @@ Page({
         if(res.data.data.numCode){
           //使用图形验证码重新获取验证码
           wx.request({
-            url: config.host+config.getcodeinterface,
+            url: config.sltk_host+config.getcodeinterface,
             method: "GET",
             data: {
               phone:phone,
@@ -32,7 +33,7 @@ Page({
             success:function(res){
               //登陆系统
               wx.request({
-                url: config.host+config.logininterface,
+                url: config.sltk_host+config.logininterface,
                 method:"POST",
                 data:{
                   phone:phone,
@@ -47,30 +48,39 @@ Page({
                     wx.showToast({
                       title: '获取成功',
                       success:function(){
-                        
                         wx.showLoading({
                           title: '',
                         })
+                        //将token存到缓存中
                         wx.setStorageSync("token", e.data.data.token)
+                        //保存用户信息
                         wx.request({
-                          url: config.myhost + config.addUser,
+                          url: config.own_hose + config.addUser,
                           method: "POST",
                           data: {
-                            name: phone,
+                            name: "Test"+phone,
                             phone: phone,
-                            token: e.data.data.token,
-                            status: "1"
                           },
                           success: res => {
-                            console.log(res.data)
+                            wx.showModal({
+                              title: '',
+                              content: res.data,
+                              showCancel:false,
+                              success:function(res){
+                                if(res.confirm){
+                                  //跳转到账号管理页面
+                                  setTimeout(function () {
+                                    wx.hideLoading()
+                                    wx.switchTab({
+                                      url: '../AccountMan/accountman',
+                                    })
+                                  }, 2000)
+                                }
+                              }
+                            })
                           }
                         })
-                        setTimeout(function () {
-                          wx.hideLoading()
-                          wx.switchTab({
-                            url: '../AccountMan/accountman',
-                          })
-                        }, 2000)
+
                       }
                     })
                   }else{
@@ -85,7 +95,7 @@ Page({
         }else{
           //没有图形验证码
             wx.request({
-                url: config.host+config.logininterface,
+                url: config.sltk_host+config.logininterface,
                 method:"POST",
                 data:{
                   phone:phone,
@@ -94,36 +104,37 @@ Page({
                 success:function(e){
                   //判断是否登陆成功获取到token
                   if (e.data.data.token) {
-                    wx.showToast({
-                      title: '获取成功',
-                      success:function(){
-                       
-                        wx.showLoading({
-                          title: '',
-                        })
-                        wx.setStorageSync("token", e.data.data.token)
-                      }
+                    wx.showLoading({
+                      title: '',
                     })
-                    
+                    //保存token信息
+                    wx.setStorageSync("token", e.data.data.token)
+                    //保存用户信息
                     wx.request({
-                      url: config.myhost+config.addUser,
+                      url: config.own_host+config.addUser,
                       method:"POST",
                       data:{
-                        name:phone,
-                        phone:phone,
-                        token:e.data.data.token,
-                        status:"1"
+                        name:"Test"+phone,
+                        phone:phone
                       },
                       success:res=>{
-                        console.log(res.data)
+                        wx.showModal({
+                          title: '',
+                          content: res.data,
+                          showCancel:false,
+                          success:function(res){
+                            if(res.confirm){
+                              setTimeout(function () {
+                                wx.hideLoading()
+                                wx.switchTab({
+                                  url: '../AccountMan/accountman',
+                                })
+                              }, 2000)
+                            }
+                          }
+                        })
                       }
                     })
-                    setTimeout(function () {
-                      wx.hideLoading()
-                      wx.switchTab({
-                        url: '../AccountMan/accountman',
-                      })
-                    }, 2000)
                   } else {
                     wx.showToast({
                       title: '登陆失败',
@@ -139,42 +150,47 @@ Page({
 
   //直接获取token信息
   getToken:function(e){
-    var phone = e.detail.value.phone
+    wx.setStorageSync("phone", e.detail.value.phone)
+    var phone = wx.getStorageSync("phone")
     wx.request({
-      url: config.slhost+config.maketoken,
+      url: config.sl_host+config.maketoken,
       method:"GET",
       data:{
         phone:phone
       },
       success:function(res){
         if(res.data.token){
-          wx.showToast({
-            title: '获取成功',
-          })
           wx.showLoading({
             title: '',
           })
+          //保存token
           wx.setStorageSync("token", res.data.token)
+          //保存用户信息
           wx.request({
-            url: config.myhost + config.addUser,
+            url: config.own_host + config.addUser,
             method: "POST",
             data: {
               name: phone,
-              phone: phone,
-              token: res.data.token,
-              status: "1"
+              phone: phone
             },
             success: res => {
-              console.log(res.data)
+              wx.showModal({
+                title: '',
+                content: res.data,
+                showCancel:false,
+                success:function(res){
+                  if(res.confirm){
+                    setTimeout(function () {
+                      wx.hideLoading()
+                      wx.switchTab({
+                        url: '../AccountMan/accountman',
+                      })
+                    }, 2000)
+                  }
+                }
+              })
             }
           })
-          setTimeout(function () {
-            wx.hideLoading()
-            wx.switchTab({
-              url: '../AccountMan/accountman',
-            })
-          }, 2000)
-
         }else{
           wx.showToast({
             title: '获取失败',
@@ -186,19 +202,39 @@ Page({
 
   //切换账号
   switchPhone:function(e){
-    wx.setStorageSync("token", e.currentTarget.dataset.token)
-    if(wx.getStorageSync("token")){
-      wx.showLoading({
-        title: '',
-      })
-      setTimeout(function () {
-        wx.hideLoading()
-        wx.switchTab({
-          url: '../AccountMan/accountman',
-        })
-      }, 2000)
-
-    }
+    var phone = e.currentTarget.dataset.phone
+    wx.request({
+      url: config.own_host+config.secOneInfo,
+      method:'POST',
+      data:{
+        phone:phone
+      },
+      success:res=>{
+        console.log(res.data)
+        if(res.data.data.token){
+          wx.showModal({
+            title: '切换账号',
+            content: '是否切换用户',
+            success: function (res) {
+              if (res.confirm) {
+                //更新token信息
+                wx.removeStorageSync("token")
+                wx.removeStorageSync("phone")
+                wx.setStorageSync("token", res.data.data.token)
+                wx.setStorageSync("phone", phone)
+                //跳转用户管理页面
+                setTimeout(function () {
+                  wx.hideLoading()
+                  wx.switchTab({
+                    url: '../AccountMan/accountman',
+                  })
+                }, 2000)
+              }
+            }
+          })
+        }
+      }
+    })
   },
 
 
@@ -208,9 +244,11 @@ Page({
    */
   onLoad: function (options) {
     var that = this
+    //进入时
     wx.removeStorageSync("token")
+    wx.removeStorageSync("phone")
     wx.request({
-      url: config.myhost+config.getUsers,
+      url: config.own_host+config.secAllUser,
       method:"GET",
       success:function(res){
         that.setData({

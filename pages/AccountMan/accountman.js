@@ -1,5 +1,5 @@
 // pages/AccountMan/accountman.js
-const config = require("../../config.js").interfaceList
+const config = require("../../config.js").interfaces
 
 Page({
 
@@ -32,14 +32,28 @@ Page({
     if(wx.getStorageSync("token")){
       //获取用户详细信息
       wx.request({
-        url: config.host+config.userInfo,
+        url: config.sltk_host+config.userInfo,
         header:{
           token:wx.getStorageSync("token")
         },
         success:res=>{
-          that.setData({
-            data:res.data.data
-          })
+          if(res.statusCode == "200"){
+            that.setData({
+              data: res.data.data
+            })
+          }else{
+            wx.showModal({
+              title: '',
+              content: res.data.data.message,
+            })
+          }
+          
+        },
+        fail:function(e){
+            wx.showModal({
+              title: '',
+              content: e.errMsg,
+            })
         }
       })
     }else{

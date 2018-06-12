@@ -47,6 +47,7 @@ Page({
                   that.setData({
                     data: res.data.data
                   })
+                  wx.setStorageSync("userId", res.data.data.userId)
                 } else {
                   wx.showModal({
                     title: '',

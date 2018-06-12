@@ -6,32 +6,138 @@ Page({
    * 页面的初始数据
    */
   data: {
-  
+      hidden:true
   },
 
   //新增接口数据
   addinterface:function(e){
-      var interName = e.detail.value.interName
-      var interUrl = e.detail.value.interUrl
+    var interfaceName = e.detail.value.interfaceName
+    var interfaceUrl = e.detail.value.interfaceUrl
+    var methodType = e.detail.value.methodType
+    var data = e.detail.value.data
+    if(interfaceName && interfaceUrl){
       wx.request({
-        url: config.own_host+config.addInterface,
-        data:{
-          interfaceName:interName,
-          interfaceUrl:interUrl
+        url: config.own_host + config.addInterface,
+        data: {
+          interfaceName: interfaceName,
+          interfaceUrl: interfaceUrl,
+          methodType:methodType,
+          data:data
         },
-        method:"POST",
-        success:res=>{
+        method: "POST",
+        success: res => {
           console.log(res.data)
         }
       })
+    }else{
+      wx.showModal({
+        title: '',
+        content: '请输入对应接口信息',
+      })
+    }
+
   },
 
+  //选择服务器
+  checkHost:function(e){
+    this.setData({
+      host:e.target.dataset.hosturl
+    })
+  },
 
+  dointerface:function(e){
+    //自定义接口请求
+    var host = this.data.host
+    var data = e.detail.value
+    var url = e.detail.value.interfaceurl
+    var methodtype = this.data.methodtype
+    wx.request({
+      url: host+url,
+      method:methodtype,
+      header:{
+        token:wx.getStorageSync("token")
+      },
+      data:data,
+      dataType:"json",
+      success:res=>{
+        if(res.statusCode == 200){
+          wx.showModal({
+            title: '',
+            content: ""+res.data.data+"",
+          })
+        }else{
+          wx.showModal({
+            title: '',
+            content: "--"+res.statusCode+"---",
+          })
+        }
+
+      },
+      fail:function(e){
+        console.log(e)
+        wx.showModal({
+          title: '请求错误',
+          content: "--" + e.errMsg+"--",
+        })
+      }
+    })
+
+    //保存formid
+    wx.request({
+      url: config.own_host + config.addFromId,
+      method: "POST",
+      data: {
+        formId: e.detail.formId,
+        userId: wx.getStorageSync("userId")
+      },
+      success: res => {
+      },
+      fail: function (e) {
+        wx.showModal({
+          title: '',
+          content: '--' + e + "--",
+        })
+      }
+    })
+  },
+  //关闭蒙层
+  closemodal:function(){
+    this.setData({
+      hidden:true
+    })
+  },
 
 //请求接口
   reqInter:function(e){
-    console.log(e)
+    this.setData({
+      interdata:e.detail.target.dataset.interdata,
+      interfacename:e.detail.target.dataset.interfacename,
+      interfaceurl:e.detail.target.dataset.interfaceurl,
+      methodtype:e.detail.target.dataset.methodtype,
+      hidden:false
+    })
+    //保存formid
+    wx.request({
+      url: config.own_host + config.addFromId,
+      method:"POST",
+      data:{
+        formId:e.detail.formId,
+        userId:wx.getStorageSync("userId")
+      },
+      success:res=>{
+      },
+      fail:function(e){
+        wx.showModal({
+          title: '',
+          content: '--'+e+"--",
+        })
+      }
+    })
+
   },
+
+
+
 
   /**
    * 生命周期函数--监听页面加载
@@ -44,6 +150,19 @@ Page({
         that.setData({
           data:res.data
         })
+      }
+    })
+
+    wx.request({
+      url: config.own_host + config.secAllHost,
+      method:"POST",
+      success:function(res){
+        that.setData({
+          hostList:res.data
+        })
+      },
+      fail:function(res){
+        console.log(res)
       }
     })
   },

@@ -1,16 +1,40 @@
 <!--pages/InterfaceMan/interfaceman.wxml-->
-<view>
+<view class='addList'>
   <form bindsubmit='addinterface'>
-    <input name="interName" placeholder='接口名称'></input>
-    <input name="interUrl" placeholder='接口地址'></input>
+    <input name="interfaceName" placeholder='接口名称'></input>
+    <input name="interfaceUrl" placeholder='接口地址'></input>
+    <input name="methodType" placeholder='请求方式'></input>
+    <input name="data" placeholder='请求数据'></input>
     <button formType="submit">新增</button>
   </form>
 </view>
 
-<view>
-  <view wx:for="{{data}}" wx:key="{{item.nameUrl}}">
+<view class='interfaceList'>
+  <view wx:for="{{data}}" wx:key="{{item.interfaceName}}">
     <form bindsubmit='reqInter' report-submit='True'>
-      <button formType="submit" data-inter='{{item.addressUrl}}'>{{item.nameUrl}}</button>
+      <button formType="submit" data-interdata='{{item.data}}' data-interfaceUrl='{{item.interfaceUrl}}' data-methodtype='{{item.methodType}}' data-interfacename='{{item.interfaceName}}' >{{item.interfaceName}}</button>
     </form>
+  </view>
+</view>
+
+<view class='hostlist'>
+  <view wx:for="{{hostList}}">
+    <button data-hosturl='{{item.hostUrl}}' bindtap='checkHost'>{{item.hostName}}</button>
+  </view>
+</view>
+
+
+<view class='dointerface' hidden='{{hidden}}'>
+  <view bindtap='closemodal' class='closemodal'><text>X</text>
+  </view>
+  <view class='interfaceinfo'>
+      <form report-submit='true' bindsubmit='dointerface'>
+        <view>{{interfacename}}</view>
+        <input name = "interfaceurl" value='{{interfaceurl}}'></input>
+        <view wx:for="{{interdata}}">
+          <input name = "{{item}}" placeholder='请求参数:{{item}}'></input>
+        </view>
+        <button formType="submit">{{methodtype}}</button>
+      </form>
   </view>
 </view>

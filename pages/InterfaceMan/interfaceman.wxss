@@ -1,1 +1,68 @@
 /* pages/InterfaceMan/interfaceman.wxss */
+.addList{
+  margin: 5px;
+}
+.addList input{
+  background-color: beige;
+  height: 40px;
+  margin: 5px;
+  padding: 5px;
+  text-align: center;
+  line-height: 40px;
+}
+.addList button{
+  margin-bottom: 20px;
+}
+.interfaceList{
+  justify-content: center;
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+}
+.interfaceList button{
+  width: 100px;
+  background-color: royalblue;
+  margin: 5px;
+  font-size: 18px;
+}
+.dointerface{
+  position: fixed;
+  top: 0px;
+  z-index: 20;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+}
+.closemodal{
+  color: wheat;
+  font-size: 25px;
+  margin-top: 15px;
+  margin-right: 15px;
+  text-align: right;
+}
+.interfaceinfo{
+  margin-bottom: 20px;
+  text-align: center;
+  color: orange;
+}
+.interfaceinfo input{
+  font-size: 15px;
+  background-color: gold;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  margin: 10px;
+  color: black;
+}
+.interfaceinfo button{
+  width: 80%;
+}
+
+.hostlist{
+  margin: 5px;
+}
+.hostlist button{
+  width: 80px;
+  float: left;
+  margin: 5px;
+}

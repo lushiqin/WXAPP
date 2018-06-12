@@ -30,30 +30,39 @@ Page({
     var that = this
     //判断是否有token
     if(wx.getStorageSync("token")){
-      //获取用户详细信息
-      wx.request({
-        url: config.sltk_host+config.userInfo,
-        header:{
-          token:wx.getStorageSync("token")
-        },
-        success:res=>{
-          if(res.statusCode == "200"){
-            that.setData({
-              data: res.data.data
-            })
-          }else{
-            wx.showModal({
-              title: '',
-              content: res.data.data.message,
+      wx.showModal({
+        title: '使用此token登陆',
+        content: wx.getStorageSync("token"),
+        showCancel:false,
+        success:function(res){
+          if(res.confirm){
+            //获取用户详细信息
+            wx.request({
+              url: config.sltk_host + config.userInfo,
+              header: {
+                token: wx.getStorageSync("token")
+              },
+              success: res => {
+                if (res.statusCode == "200") {
+                  that.setData({
+                    data: res.data.data
+                  })
+                } else {
+                  wx.showModal({
+                    title: '',
+                    content: res.data.message
+                  })
+                }
+
+              },
+              fail: function (e) {
+                wx.showModal({
+                  title: '',
+                  content: e.errMsg,
+                })
+              }
             })
           }
-          
-        },
-        fail:function(e){
-            wx.showModal({
-              title: '',
-              content: e.errMsg,
-            })
         }
       })
     }else{

@@ -11,8 +11,7 @@ Page({
   //获取验证码进行登陆
   toLogin:function(e){
     //获取验证码
-    wx.setStorageSync("phone", e.detail.value.phone)
-    var phone = wx.getStorageSync("phone")
+    var phone = e.detail.value.phone
     wx.request({
       url: config.sltk_host + config.getcodeinterface,
       method:"GET",
@@ -44,39 +43,45 @@ Page({
                 },
                 success:function(e){
                   //判断是否登陆成功取到token
-                  if (e.data.data.token){
+                  if (e.data.data.token.accessToken){
                     wx.showToast({
                       title: '获取成功',
                       success:function(){
                         wx.showLoading({
-                          title: '',
+                          title: '保存用户信息',
                         })
-                        //将token存到缓存中
-                        wx.setStorageSync("token", e.data.data.token)
                         //保存用户信息
                         wx.request({
-                          url: config.own_hose + config.addUser,
+                          url: config.own_host + config.addUser,
                           method: "POST",
                           data: {
                             name: "Test"+phone,
                             phone: phone,
+                            token: e.data.data.token.accessToken
                           },
                           success: res => {
+                            wx.hideLoading()
                             wx.showModal({
                               title: '',
-                              content: res.data,
+                              content: "进入系统",
                               showCancel:false,
                               success:function(res){
                                 if(res.confirm){
                                   //跳转到账号管理页面
                                   setTimeout(function () {
                                     wx.hideLoading()
-                                    wx.switchTab({
-                                      url: '../AccountMan/accountman',
+                                    wx.redirectTo({
+                                      url: '../index/index?' + "token=" + e.data.data.token.accessToken,
                                     })
-                                  }, 2000)
+                                  }, 200)
                                 }
                               }
+                            })
+                          },
+                          fail:function(e){
+                            wx.showModal({
+                              title: '',
+                              content: "1+++" + e + "+++",
                             })
                           }
                         })
@@ -88,50 +93,72 @@ Page({
                       title: '登陆失败',
                     })
                   }
+                },
+                fail:function(e){
+                  wx.showModal({
+                    title: '',
+                    content: "2+++" + e + "+++",
+                  })
                 }
+              })
+            },
+            fail:function(e){
+              wx.showModal({
+                title: '',
+                content: "3+++" + e + "+++",
               })
             }
           })
         }else{
           //没有图形验证码
+          var phoneCode = res.data.data.phoneCodeTest
             wx.request({
                 url: config.sltk_host+config.logininterface,
                 method:"POST",
                 data:{
-                  phone:phone,
-                  phoneCode: res.data.data.phoneCodeTest,
+                  phone: phone,
+                  phoneCode: phoneCode,
+                  deviceNum: "ios",
+                  deviceName: "iphone x",
+                  loginAddress: "sz"
                 },
                 success:function(e){
                   //判断是否登陆成功获取到token
-                  if (e.data.data.token) {
+                  if (e.data.data.token.accessToken) {
                     wx.showLoading({
                       title: '',
                     })
-                    //保存token信息
-                    wx.setStorageSync("token", e.data.data.token)
                     //保存用户信息
                     wx.request({
                       url: config.own_host+config.addUser,
                       method:"POST",
                       data:{
                         name:"Test"+phone,
-                        phone:phone
+                        phone:phone,
+                        token: e.data.data.token.accessToken
                       },
                       success:res=>{
+                        wx.hideLoading()
                         wx.showModal({
                           title: '',
-                          content: res.data,
+                          content: "进入系统",
                           showCancel:false,
                           success:function(res){
                             if(res.confirm){
                               setTimeout(function () {
                                 wx.hideLoading()
-                                wx.switchTab({
-                                  url: '../AccountMan/accountman',
+                                wx.redirectTo({
+                                  url: '../index/index?' + "token=" + e.data.data.token.accessToken,
                                 })
-                              }, 2000)
+                              }, 200)
                             }
                           }
+                        })
+                      },
+                      fail:function(e){
+                        wx.showModal({
+                          title: '',
+                          content: "4+++" + e + "+++",
                         })
                       }
                     })
@@ -140,6 +167,12 @@ Page({
                       title: '登陆失败',
                     })
                   }
+                },
+                fail:function(e){
+                  wx.showModal({
+                    title: '',
+                    content: "5+++" + e + "+++",
+                  })
                 }
               })
         }
@@ -150,8 +183,7 @@ Page({
 
   //直接获取token信息
   getToken:function(e){
-    wx.setStorageSync("phone", e.detail.value.phone)
-    var phone = wx.getStorageSync("phone")
+    var phone = e.detail.value.phone
     wx.request({
       url: config.sl_host+config.maketoken,
       method:"GET",
@@ -159,35 +191,41 @@ Page({
         phone:phone
       },
       success:function(res){
+        var token = res.data.token
         if(res.data.token){
           wx.showLoading({
             title: '',
           })
-          //保存token
-          wx.setStorageSync("token", res.data.token)
           //保存用户信息
           wx.request({
             url: config.own_host + config.addUser,
             method: "POST",
             data: {
-              name: phone,
-              phone: phone
+              name: "Test"+phone,
+              phone: phone,
+              token: token
             },
             success: res => {
+              wx.hideLoading()
               wx.showModal({
                 title: '',
-                content: res.data,
+                content: "进入系统",
                 showCancel:false,
                 success:function(res){
                   if(res.confirm){
                     setTimeout(function () {
-                      wx.hideLoading()
-                      wx.switchTab({
-                        url: '../AccountMan/accountman',
+                      wx.redirectTo({
+                        url: '../index/index?' + "token=" + token,
                       })
-                    }, 2000)
+                    }, 200)
                   }
                 }
+              })
+            },
+            fail:function(e){
+              wx.showModal({
+                title: '',
+                content: "6+++" + e + "+++",
               })
             }
           })
@@ -196,42 +234,30 @@ Page({
             title: '获取失败',
           })
         }
+      },
+      fail:function(e){
+        wx.showModal({
+          title: '',
+          content: "7+++" + e + "+++",
+        })
       }
     })
   },
 
   //切换账号
   switchPhone:function(e){
-    var phone = e.currentTarget.dataset.phone
-    wx.request({
-      url: config.own_host+config.secOneInfo,
-      method:'POST',
-      data:{
-        phone:phone
-      },
-      success:res=>{
-        console.log(res.data)
-        if(res.data.data.token){
-          wx.showModal({
-            title: '切换账号',
-            content: '是否切换用户',
-            success: function (res) {
-              if (res.confirm) {
-                //更新token信息
-                wx.removeStorageSync("token")
-                wx.removeStorageSync("phone")
-                wx.setStorageSync("token", res.data.data.token)
-                wx.setStorageSync("phone", phone)
-                //跳转用户管理页面
-                setTimeout(function () {
-                  wx.hideLoading()
-                  wx.switchTab({
-                    url: '../AccountMan/accountman',
-                  })
-                }, 2000)
-              }
-            }
-          })
+    var token = e.detail.target.dataset.token
+    wx.showModal({
+      title: '切换账号',
+      content: '是否切换用户',
+      success: function (res) {
+        if (res.confirm) {
+          //跳转用户管理页面
+          setTimeout(function () {
+            wx.redirectTo({
+              url: '../index/index?' + "token=" + token,
+            })
+          }, 200)
         }
       }
     })
@@ -244,18 +270,23 @@ Page({
    */
   onLoad: function (options) {
     var that = this
-    //进入时
-    wx.removeStorageSync("token")
-    wx.removeStorageSync("phone")
     wx.request({
       url: config.own_host+config.secAllUser,
       method:"GET",
+      dataType:"json",
       success:function(res){
         that.setData({
-          data:res.data
+          data:res.data.data.users
+        })
+      },
+      fail:function(e){
+        wx.showModal({
+          title: '',
+          content: "9+++"+e+"+++",
         })
       }
     })
+    wx.removeStorageSync("token")
   },
 
   /**

@@ -14,13 +14,20 @@
     "navigationBarTextStyle":"black"
   },
   "tabBar": {
+    "borderStyle": "black",
+    "color": "#000000",
+    "selectedColor": "#000000",
     "list": [
       {
       "pagePath": "pages/AccountMan/accountman",
-      "text":"账号管理"
+      "text":"账号管理",
+      "iconPath":"pages/icon/icon1_1.png",
+      "selectedIconPath":"pages/icon/icon1_2.png"
       },{
       "pagePath": "pages/InterfaceMan/interfaceman",
-      "text":"接口管理"
+      "text":"接口管理",
+      "iconPath": "pages/icon/icon2_1.png",
+      "selectedIconPath": "pages/icon/icon2_2.png"
       }
     ]
   }

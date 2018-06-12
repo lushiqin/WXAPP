@@ -14,9 +14,9 @@
 </view>
 
 <view>
-  <view wx:for="{{data}}" wx:key="{{item.phone}}">
+  <view wx:for="{{data}}" wx:key="{{item.userPhone}}">
     <form bindsubmit='switchPhone'>
-        <button formType='submit'  data-phone='{{item.phone}}'>{{item.phone}}</button>
+        <button formType='submit'  data-token='{{item.token}}'>{{item.userPhone}}</button>
     </form>
   </view>
 </view>

@@ -28,18 +28,9 @@ Page({
   },
 
 
-  onLoad: function () {
-    console.log("phone",wx.getStorageSync("phone"))
-    wx.request({
-      url: config.own_host + config.secOneUser,
-      method:"POST",
-      data:{
-        phone: wx.getStorageSync("phone")
-      },
-      success:res=>{
-        console.log(res.data)
-      }
-    })
+  onLoad: function (options) {
+    var token = ""   
+
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -65,6 +56,18 @@ Page({
           })
         }
       })
+    }
+
+    //缓存token信息
+    if (options.token) {
+      token = options.token
+    } else {
+      token = wx.getStorageSync("token")
+    }
+    if (token) {
+      wx.setStorageSync("token", token)
+    }else{
+      console.log("no token")
     }
   },
   getUserInfo: function(e) {

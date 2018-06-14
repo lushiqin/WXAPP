@@ -1,23 +1,25 @@
 /* pages/InterfaceMan/interfaceman.wxss */
-.addList{
+/* host数据布局 */
+.hostlist{
   margin: 5px;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  flex-wrap: wrap-reverse;
 }
-.addList input{
-  background-color: beige;
-  height: 40px;
+.hostlist button{
+  width: 80px;
   margin: 5px;
-  padding: 5px;
-  text-align: center;
-  line-height: 40px;
+  background-color: teal;
 }
-.addList button{
-  margin-bottom: 20px;
-}
+
+
+/* 接口数据布局 */
 .interfaceList{
   justify-content: center;
   display: flex;
   flex-flow: row;
-  flex-wrap: wrap;
+  flex-wrap: wrap; 
 }
 .interfaceList button{
   width: 100px;
@@ -58,11 +60,21 @@
   width: 80%;
 }
 
-.hostlist{
-  margin: 5px;
+
+
+
+/* 新增接口数据布局 */
+.addList{
+  margin: 10px;
 }
-.hostlist button{
-  width: 80px;
-  float: left;
+.addList input{
+  background-color: beige;
+  height: 40px;
   margin: 5px;
+  padding: 5px;
+  text-align: center;
+  line-height: 40px;
+}
+.addList button{
+  margin-bottom: 20px;
 }

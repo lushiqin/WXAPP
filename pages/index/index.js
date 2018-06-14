@@ -6,10 +6,12 @@ Page({
   data: {
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    formId:""
   },
   //进入系统
   accountman: function() {
+    console.log(this.data.formId)
     wx.switchTab({
       url: '../AccountMan/accountman',
     })
@@ -24,7 +26,9 @@ Page({
   //静默获取fromID
   saveUserFormId:function(res){
     var formId = res.detail.formId
-    console.log("saveUserFormId", formId)
+    this.setData({
+      formId:formId
+    })
   },
 
 

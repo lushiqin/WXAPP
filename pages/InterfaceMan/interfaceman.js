@@ -50,6 +50,8 @@ Page({
     var host = this.data.host
     var data = e.detail.value
     var url = e.detail.value.interfaceurl
+    //将接口从请求数据中移除
+    delete data.interfaceurl
     var methodtype = this.data.methodtype
     wx.request({
       url: host+url,
@@ -60,17 +62,24 @@ Page({
       data:data,
       dataType:"json",
       success:res=>{
-        if(res.statusCode == 200){
-          wx.showModal({
-            title: '',
-            content: ""+res.data.data+"",
+          wx.request({
+            url: config.own_host + config.sendmsg,
+            method:"POST",
+            data:{
+              openid: wx.getStorageSync("openid"),
+              userId: wx.getStorageSync("userId"),
+              k1:url,
+              k2:data,
+              k3:res.data,
+              k5:res.statusCode
+            },
+            success:res=>{
+                console.log(res.data)
+            },
+            fail:function(e){
+
+            }
           })
-        }else{
-          wx.showModal({
-            title: '',
-            content: "--"+res.statusCode+"---",
-          })
-        }
 
       },
       fail:function(e){

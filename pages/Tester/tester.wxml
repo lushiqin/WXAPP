@@ -1,2 +1,10 @@
-<!--pages/Tester/tester.wxml-->
-<text>pages/Tester/tester.wxml</text>
+<view>
+  <swiper indicator-dots='true'  bindchange='swiperChange'> 
+    <block wx:for='{{test}}' wx:key="{{item.name}}">
+      <swiper-item class="swipercontent" data-name='{{item.name}}' bindtap='jumpPage'>
+        <view>{{item.name}}</view>
+      </swiper-item>
+    </block>
+  </swiper>
+
+</view>

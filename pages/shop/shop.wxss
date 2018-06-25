@@ -1,0 +1,51 @@
+/* pages/shop/shop.wxss */
+
+.main{
+
+}
+.active{
+  background-color: greenyellow;
+  width: 70px;
+}
+
+.navleft{
+  position: fixed;
+  top: 10%;
+  background-color: orange;
+  width: 70px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  font-family: "楷体";
+  font-size: 14px;
+  padding-top: 20px;
+  border-radius: 10px;
+  box-shadow: 10px 10px 15px green;
+}
+.navtext{
+  height: 40px;
+  line-height: 40px;
+  margin-bottom: 5px;
+}
+
+.navright{
+  justify-content: center;
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap; 
+  position: absolute;
+  left: 85px;
+}
+.book{
+  width: 120px;
+  height: 160px;
+  background-color: palegoldenrod;
+  text-align: center;
+  margin: 5px;
+  border-radius: 5px;
+  font-family: "楷体";
+  font-size: 14px;
+  padding: 2px;
+  padding-top: 8px;
+}

@@ -1,0 +1,7 @@
+<!--pages/book/book.wxml-->
+  <view class='booktext'>
+  {{books}}
+  </view>
+
+  <view class='lastChapter' hover-class='active'>上一章</view>
+  <view class='nextChapter' hover-class='active'>下一章</view>

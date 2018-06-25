@@ -1,0 +1,17 @@
+<!--pages/shop/shop.wxml-->
+<view class='main'>
+  <view class='navleft' >
+    <view wx:for="{{navleft}}" wx:key="{{item.name}}">
+      <view  class='navtext' hover-class='active' data-url='{{item.url}}' bindtap='navleft' >{{item.name}}</view>
+    </view>
+  </view>
+
+  <view class='navright'>
+    <view wx:for="{{bookList}}" wx:key="{{item.name}}">
+        <view class='book' data-url='{{item.url}}' bindtap='clickbook'>
+          <text>{{item.name}}</text>
+        </view>
+    </view>
+  </view>
+
+</view>

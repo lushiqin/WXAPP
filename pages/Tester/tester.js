@@ -5,8 +5,30 @@ Page({
    * 页面的初始数据
    */
   data: {
-  
+    test:[
+      {"name":"shop"},
+      {"name":'shop'}
+    ]
   },
+
+
+
+  swiperChange:function(options){
+    this.setData({
+      test: [
+        { "name": "shop" },
+        { "name": 'shop' }
+      ]
+    })
+  },
+
+  jumpPage:function(options){
+    var jumppage = options.target.dataset.name
+    wx.navigateTo({
+      url: '../'+jumppage+"/"+jumppage,
+    })
+  },
+
 
   /**
    * 生命周期函数--监听页面加载

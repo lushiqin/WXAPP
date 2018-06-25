@@ -1,1 +1,5 @@
 /* pages/Tester/tester.wxss */
+
+.swipercontent{
+  background-color: green;
+}

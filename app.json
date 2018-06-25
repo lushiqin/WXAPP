@@ -1,11 +1,14 @@
 {
   "pages":[  
     "pages/index/index",
+    "pages/Login/login",
     "pages/AccountMan/accountman",
     "pages/PersonalCenter/personalcenter",
-    "pages/Login/login",
     "pages/InterfaceMan/interfaceman",
-    "pages/Tester/tester"
+    "pages/Tester/tester",
+    "pages/shop/shop",
+    "pages/book/book"
+   
   ],
   "window":{
     "backgroundTextStyle":"light",

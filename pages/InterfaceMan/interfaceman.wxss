@@ -1,16 +1,23 @@
 /* pages/InterfaceMan/interfaceman.wxss */
 /* host数据布局 */
 .hostlist{
-  margin: 5px;
+  margin: 10px;
+  margin-bottom: 30px;
+  padding: 10px;
+  border-radius: 20px;
+  box-shadow: -8px 0 25px darkgray,0 -8px 25px darkgray,0 8px 25px darkgray,8px 0 25px darkgray;
+  background-color: goldenrod;
   display: flex;
   flex-direction: row-reverse;
   justify-content: center;
   flex-wrap: wrap-reverse;
+  /* text-shadow: 5px 5px 5px black; */
 }
 .hostlist button{
-  width: 80px;
-  margin: 5px;
+  margin: 2px;
   background-color: teal;
+  border-radius: 20px;
+  box-shadow: 5px 5px 15px pink;
 }
 
 
@@ -20,12 +27,20 @@
   display: flex;
   flex-flow: row;
   flex-wrap: wrap; 
+  background-color: orchid;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 20px;
+  box-shadow:-8px 0 25px darkgray,0 -8px 25px darkgray,0 8px 25px darkgray,8px 0 25px darkgray;
+  margin-bottom: 30px;
+  /* text-shadow: 5px 5px 5px black; */
 }
 .interfaceList button{
-  width: 100px;
   background-color: royalblue;
-  margin: 5px;
+  margin: 2px;
+  border-radius: 20px;
   font-size: 18px;
+  box-shadow: 5px 5px 15px palegreen;
 }
 .dointerface{
   position: fixed;
@@ -50,14 +65,20 @@
 .interfaceinfo input{
   font-size: 15px;
   background-color: gold;
-  height: 40px;
-  line-height: 40px;
+  height: 30px;
+  line-height: 30px;
   text-align: center;
-  margin: 10px;
+  margin-bottom: 2px;
+  margin-left: 20px;
+  margin-right: 20px;
   color: black;
+  border-radius: 20px;
 }
 .interfaceinfo button{
-  width: 80%;
+  margin-top: 10px;
+  width: 80px;
+  background-color: hotpink;
+  box-shadow: 5px 5px 15px navajowhite;
 }
 
 
@@ -66,15 +87,28 @@
 /* 新增接口数据布局 */
 .addList{
   margin: 10px;
+  margin-bottom: 30px;
+  padding: 10px;
+  border-radius: 20px;
+  background-color: olivedrab;
+  /* text-shadow: 5px 5px 5px black; */
+  box-shadow: -8px 0 25px darkgray,0 -8px 25px darkgray,0 8px 25px darkgray,8px 0 25px darkgray;
 }
 .addList input{
   background-color: beige;
   height: 40px;
-  margin: 5px;
+  margin: 2px;
   padding: 5px;
   text-align: center;
   line-height: 40px;
+  border-radius: 30px;
+  box-shadow: 5px 5px 15px cadetblue;
 }
 .addList button{
-  margin-bottom: 20px;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  border-radius: 30px;
+  box-shadow: 5px 5px 15px saddlebrown;
+  background-color: gold;
+  width: 100px;
 }

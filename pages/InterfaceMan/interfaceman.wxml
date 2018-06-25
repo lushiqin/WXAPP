@@ -2,7 +2,7 @@
 
 <view class='hostlist'>
   <view wx:for="{{hostList}}" wx:key="{{item.id}}">
-    <button data-hosturl='{{item.hostUrl}}' bindtap='checkHost'>{{item.hostName}}</button>
+    <button data-hosturl='{{item.hostUrl}}' data-hostName='{{item.hostName}}' bindtap='checkHost'>{{item.hostName}}</button>
   </view>
 </view>
 

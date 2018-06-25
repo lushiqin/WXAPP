@@ -40,8 +40,17 @@ Page({
 
   //选择服务器
   checkHost:function(e){
-    this.setData({
-      host:e.target.dataset.hosturl
+    var  that = this
+    wx.showModal({
+      title: '',
+      content: '确认选择【'+e.target.dataset.hostname+'】',
+      success:function(res){
+        if(res.confirm){
+          that.setData({
+            host: e.target.dataset.hosturl
+          })
+        }
+      }
     })
   },
 
@@ -62,22 +71,32 @@ Page({
       data:data,
       dataType:"json",
       success:res=>{
-          wx.request({
-            url: config.own_host + config.sendmsg,
-            method:"POST",
-            data:{
-              openid: wx.getStorageSync("openid"),
-              userId: wx.getStorageSync("userId"),
-              k1:url,
-              k2:data,
-              k3:res.data,
-              k5:res.statusCode
-            },
-            success:res=>{
-                console.log(res.data)
-            },
-            fail:function(e){
+        var result = res.data
+        var statusCode = res.statusCode
+          wx.showModal({
+            title: '请求结果',
+            content: url + "\n" + data + "\n" + res.data.data + "\n" + statusCode,
+            dataType: "json",
+            success:function(res){
+              if(res.confirm){
+                wx.request({
+                  url: config.own_host + config.sendmsg,
+                  method: "POST",
+                  data: {
+                    openid: wx.getStorageSync("openid"),
+                    userId: wx.getStorageSync("userId"),
+                    k1: url,
+                    k2: data,
+                    k3: result,
+                    k5: statusCode
+                  },
+                  success: res => {
+                  },
+                  fail: function (e) {
 
+                  }
+                })
+              }
             }
           })
 
@@ -97,7 +116,7 @@ Page({
       method: "POST",
       data: {
         formId: e.detail.formId,
-        userId: wx.getStorageSync("userId")
+        openId: wx.getStorageSync("openid")
       },
       success: res => {
       },
@@ -131,7 +150,7 @@ Page({
       method:"POST",
       data:{
         formId:e.detail.formId,
-        userId:wx.getStorageSync("userId")
+        openId:wx.getStorageSync("openid")
       },
       success:res=>{
       },

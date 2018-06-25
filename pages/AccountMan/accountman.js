@@ -50,15 +50,19 @@ Page({
                   wx.setStorageSync("userId", res.data.data.userId)
                 } else {
                   wx.showModal({
-                    title: '',
-                    content: res.data.message
+                    title: '获取用户信息失败',
+                    showCancel:false,
+                    content: res.data.message,
+                    success:function(res){
+                      
+                    }
                   })
                 }
 
               },
               fail: function (e) {
                 wx.showModal({
-                  title: '',
+                  title: '请求用户信息接口报错',
                   content: e.errMsg,
                 })
               }

@@ -10,30 +10,36 @@ Page({
   },
 
   navleft:function(options){
+      var typeurl = options.target.dataset.url
+      wx.showLoading({
+        title: '',
+      })
       var that = this
-      var url = options.target.dataset.url
       wx.request({
-        url: 'http://www.xs84.la'+url,
+        url: config.own_host + config.bqghomepage,
+        method: "POST",
+        data: {
+          url: typeurl
+        },
         success: res => {
-          wx.request({
-            url: config.own_host + config.xs84,
-            method: "POST",
-            data: {
-              content: res.data
-            },
-            success: res => {
-              that.setData({
-                nav: res.data.nav,
-                newl: res.data.newl,
-                newr: res.data.newr,
-                tup: res.data.tup
-              })
-              wx.hideLoading()
-            }
+          console.log(res.data)
+          that.setData({
+            nav: res.data.nav,
+            hots: res.data.hots,
+            spush: res.data.spush,
+            novels: res.data.novels,
+            news: res.data.news,
           })
+          wx.hideLoading()
+        },
+        fail: function (e) {
+          console.log(e)
+          wx.hideLoading()
         }
       })
+      
   },
+
   clickbook:function(options){
     var url = options.currentTarget.dataset.url
     var name = options.currentTarget.dataset.name
@@ -69,10 +75,7 @@ Page({
       },
       fail:function(e){
         console.log(e)
-        wx.showModal({
-          title: '',
-          content: e,
-        })
+        wx.hideLoading()
       }
     })
   },

@@ -3,8 +3,8 @@
 <view class='content'>
   <view class='name'>{{name}}</view>
   <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
-  <view class='lastChapter' hover-class='active' bindtap='lastChapter'>上一章</view>
-  <view class='nextChapter' hover-class='active' bindtap='nextChapter'>下一章</view>
+  <view class='lastChapter' hover-class='active' bindtap='lastc' data-lastc='{{lastchapter}}'>上一章</view>
+  <view class='nextChapter' hover-class='active' bindtap='nextc' data-nextc='{{nextchapter}}'>下一章</view>
 
 </view>
 

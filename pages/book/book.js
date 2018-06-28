@@ -10,30 +10,105 @@ Page({
     
   },
 
+  lastc:function(options){
+    var url = options.target.dataset.lastc
+    wx.showLoading({
+      title: '',
+    })
+    var that = this
+    wx.request({
+      url: config.own_host + config.bqgdetails,
+      method: 'POST',
+      data: {
+        url: url
+      },
+      success: res => {
+        var chapname = res.data.chapname
+        var lastchapter = res.data.lastchapter
+        var nextchapter = res.data.nextchapter
+        var article = res.data.contentbody
+        wx.setNavigationBarTitle({
+          title: chapname,
+        })
+        that.setData({
+          lastchapter: lastchapter,
+          nextchapter: nextchapter
+        })
+        WxParse.wxParse('article', 'html', article, that, 5);
+        wx.hideLoading()
+      },
+      fail: function (e) {
+        console.log(e)
+        wx.hideLoading()
+      }
+    })
+  },
+  nextc:function(options){
+    var url = options.target.dataset.nextc
+    wx.showLoading({
+      title: '',
+    })
+    var that = this
+    wx.request({
+      url: config.own_host + config.bqgdetails,
+      method: 'POST',
+      data: {
+        url: url
+      },
+      success: res => {
+        var chapname = res.data.chapname
+        var lastchapter = res.data.lastchapter
+        var nextchapter = res.data.nextchapter
+        var article = res.data.contentbody
+        wx.setNavigationBarTitle({
+          title: chapname,
+        })
+        that.setData({
+          lastchapter: lastchapter,
+          nextchapter: nextchapter
+        })
+        WxParse.wxParse('article', 'html', article, that, 5);
+        wx.hideLoading()
+      },
+      fail: function (e) {
+        console.log(e)
+        wx.hideLoading()
+      }
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.setNavigationBarTitle({
-      title: options.name,
-    })
       wx.showLoading({
         title: '',
       })
       var that = this
       wx.request({
-        url: config.own_host+config.xszj,
+        url: config.own_host + config.bqgdetails,
         method:'POST',
         data:{
           url:options.url
         },
         success:res =>{
-          var article = res.data
+          var chapname = res.data.chapname
+          var lastchapter = res.data.lastchapter
+          var nextchapter = res.data.nextchapter
+          var article = res.data.contentbody
+          wx.setNavigationBarTitle({
+            title: chapname,
+          })
+          that.setData({
+            lastchapter: lastchapter,
+            nextchapter: nextchapter
+          })
           WxParse.wxParse('article', 'html', article, that, 5);
           wx.hideLoading()
         },
         fail:function(e){
           console.log(e)
+          wx.hideLoading()
         }
       })
   },

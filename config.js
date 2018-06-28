@@ -1,7 +1,7 @@
 module.exports = {
 
   interfaces:{
-    own_host: "http://lsqin.top",
+    own_host: "http://localhost:8000",
     // serverhost: "http://lsqin.top",
     // testhost : "http://sltktest.newgs.net",
     // producthost : "http://sltk.newgs.net",
@@ -31,7 +31,6 @@ module.exports = {
     xsml:"/xsml",
     xszj:"/xszj",
     bqghomepage:"/bqghomepage",
-    bqgtypecolumn:"/bqgtypecolumn",
     bqgcatalog:"/bqgcatalog",
     bqgdetails:"/bqgdetails",
 

@@ -35,8 +35,12 @@
   left: 85px;
 }
 .book{
-  width: 120px;
-  height: 160px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  line-height: 40px;
   background-color: palegoldenrod;
   text-align: center;
   margin: 5px;

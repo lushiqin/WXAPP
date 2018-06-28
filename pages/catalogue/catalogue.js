@@ -29,24 +29,20 @@ Page({
       title: '',
     })
     wx.request({
-      url: options.url,
-      success:res=>{
-        wx.request({
-          url: config.own_host + config.xsml,
-          method: 'POST',
-          data: {
-            content:res.data
-          },
-          success: res => {
-            that.setData({
-              catalogue: res.data.ml
-            })
-            wx.hideLoading()
-          },
-          fail: function (e) {
-            console.log(e)
-          }
+      url: config.own_host + config.bqgcatalog,
+      method: 'POST',
+      data: {
+        url: options.url
+      },
+      success: res => {
+        that.setData({
+          catalogue: res.data.ml
         })
+        wx.hideLoading()
+      },
+      fail: function (e) {
+        console.log(e)
+        wx.hideLoading()
       }
     })
   },

@@ -1,7 +1,7 @@
 module.exports = {
 
   interfaces:{
-    own_host: "http://localhost:8000",
+    own_host: "http://lsqin.top",
     // serverhost: "http://lsqin.top",
     // testhost : "http://sltktest.newgs.net",
     // producthost : "http://sltk.newgs.net",

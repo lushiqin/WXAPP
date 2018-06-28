@@ -3,9 +3,3 @@
 .swipercontent{
   background-color: green;
 }
-.bookbutton{
-  margin-top: 70%;
-  width: 80%;
-  background-color: oldlace;
-  color: black;
-}

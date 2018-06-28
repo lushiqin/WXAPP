@@ -1,65 +1,44 @@
 // pages/shop/shop.js
+const config = require("../../config.js").interfaces
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-      "navleft":[
-        { "name": "玄幻魔法", "url": "1" },
-        { "name": "武侠修真", "url": "2" },
-        { "name": "都市言情", "url": "3" },
-        { "name": "历史军事", "url": "4" },
-        { "name": "网游动漫", "url": "5" },
-        { "name": "科幻小说", "url": "6" },
-        { "name": "美文同人", "url": "7" },
-        { "name": "恐怖灵异", "url": "8" },
-        { "name": "其他类型", "url": "9" }
-      ],
-      "bookList":[
-        {"name":"全民修真大时代这就是爱","url":"111"},
-        { "name": "book1", "url": "111" },
-        { "name": "book1", "url": "111" },
-        { "name": "book1", "url": "111" },
-        { "name": "book1", "url": "111" },
-        { "name": "book1", "url": "111" },
-        { "name": "book1", "url": "111" },
-        { "name": "book1", "url": "111" },
-        { "name": "book1", "url": "111" },
-        { "name": "book1", "url": "111" },
-        { "name": "book1", "url": "111" },
-        { "name": "book1", "url": "111" },
-        { "name": "book1", "url": "111" },
-        { "name": "book1", "url": "111" },
-        { "name": "book1", "url": "111" },
-        { "name": "book1", "url": "111" },
-        { "name": "book1", "url": "111" },
-        { "name": "book1", "url": "111" },
-        { "name": "book1", "url": "111" },
-        { "name": "book1", "url": "111" },
-        { "name": "book1", "url": "111" },
-        { "name": "book1", "url": "111" },
-        { "name": "book1", "url": "111" },
-        { "name": "book1", "url": "111" },
-        { "name": "book1", "url": "111" },
-        { "name": "book1", "url": "111" },
-        { "name": "book1", "url": "111" },
-        { "name": "book1", "url": "111" },
-        {"name":"book2","url":"222"}
 
-      ]
   },
-
-
-
 
   navleft:function(options){
-    console.log(options)
+      var that = this
+      var url = options.target.dataset.url
+      wx.request({
+        url: 'http://www.xs84.la'+url,
+        success: res => {
+          wx.request({
+            url: config.own_host + config.xs84,
+            method: "POST",
+            data: {
+              content: res.data
+            },
+            success: res => {
+              that.setData({
+                nav: res.data.nav,
+                newl: res.data.newl,
+                newr: res.data.newr,
+                tup: res.data.tup
+              })
+              wx.hideLoading()
+            }
+          })
+        }
+      })
   },
   clickbook:function(options){
-    console.log(options)
+    var url = options.currentTarget.dataset.url
+    var name = options.currentTarget.dataset.name
     wx.navigateTo({
-      url: '../book/book',
+      url: '../catalogue/catalogue?url='+url+"&name="+name,
     })
   },
 
@@ -67,7 +46,35 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    wx.showLoading({
+      title: '',
+    })
+    var that = this 
+    wx.request({
+      url: config.own_host+config.bqghomepage,
+      method:"POST",
+      data:{
+        url:"/"
+      },
+      success:res=>{
+        console.log(res.data)
+        that.setData({
+          nav: res.data.nav,
+          hots: res.data.hots,
+          spush: res.data.spush,
+          novels: res.data.novels,      
+          news: res.data.news,
+        })
+        wx.hideLoading()
+      },
+      fail:function(e){
+        console.log(e)
+        wx.showModal({
+          title: '',
+          content: e,
+        })
+      }
+    })
   },
 
   /**

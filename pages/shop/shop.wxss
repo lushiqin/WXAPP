@@ -1,8 +1,5 @@
 /* pages/shop/shop.wxss */
 
-.main{
-
-}
 .active{
   background-color: greenyellow;
   width: 70px;
@@ -10,7 +7,7 @@
 
 .navleft{
   position: fixed;
-  top: 10%;
+  top: 3%;
   background-color: orange;
   width: 70px;
   display: flex;
@@ -19,14 +16,14 @@
   align-items: center;
   font-family: "楷体";
   font-size: 14px;
-  padding-top: 20px;
+  padding-top: 15px;
+  padding-bottom: 15px;
   border-radius: 10px;
   box-shadow: 10px 10px 15px green;
 }
 .navtext{
   height: 40px;
   line-height: 40px;
-  margin-bottom: 5px;
 }
 
 .navright{
@@ -48,4 +45,8 @@
   font-size: 14px;
   padding: 2px;
   padding-top: 8px;
+}
+.navright image{
+  width: 110px;
+  height: 120px;
 }

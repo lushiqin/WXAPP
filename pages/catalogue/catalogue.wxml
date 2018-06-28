@@ -1,0 +1,7 @@
+<!--pages/catalogue/catalogue.wxml-->
+<view class='content'>
+  <view wx:for="{{catalogue}}" wx:key ="{{item.name}}">
+    <view class='catalogue' hover-class='active' data-name='{{item.name}}' data-url='{{item.url}}' bindtap='catalogue'>{{item.name}}</view>
+  </view>
+
+</view>

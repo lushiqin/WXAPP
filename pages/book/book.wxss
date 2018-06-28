@@ -1,12 +1,20 @@
 /* pages/book/book.wxss */
 
-.booktext{
-  background-color: green;
+.content{
+  background-color: grey;
   font-family: "楷体";
-  font-size: 24px;
+  font-size: 16px;
   padding: 10px;
 }
-
+.name{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
 .lastChapter{
   position: fixed;
   top: 50%;

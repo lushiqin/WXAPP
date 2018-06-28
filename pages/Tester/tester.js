@@ -28,7 +28,11 @@ Page({
       url: '../'+jumppage+"/"+jumppage,
     })
   },
-
+  book:function(options){
+    wx.navigateTo({
+      url: '../shop/shop',
+    })
+  },
 
   /**
    * 生命周期函数--监听页面加载

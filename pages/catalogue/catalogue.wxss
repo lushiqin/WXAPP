@@ -1,0 +1,21 @@
+/* pages/catalogue/catalogue.wxss */
+.content{
+  background-color: rosybrown;
+  font-family: "楷体";
+  padding: 5px;
+  font-size: 18px;
+}
+.bookname{
+  font-size: 24px;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.catalogue{
+  margin: 10px;
+}
+.active{
+  color: red;
+}

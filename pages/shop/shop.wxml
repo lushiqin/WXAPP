@@ -1,14 +1,33 @@
 <!--pages/shop/shop.wxml-->
 <view class='main'>
   <view class='navleft' >
-    <view wx:for="{{navleft}}" wx:key="{{item.name}}">
+    <view wx:for="{{nav}}" wx:key="{{item.name}}">
       <view  class='navtext' hover-class='active' data-url='{{item.url}}' bindtap='navleft' >{{item.name}}</view>
     </view>
   </view>
 
   <view class='navright'>
-    <view wx:for="{{bookList}}" wx:key="{{item.name}}">
-        <view class='book' data-url='{{item.url}}' bindtap='clickbook'>
+    <view wx:for="{{hots}}" wx:key="{{item.name}}">
+        <view class='book' data-url='{{item.url}}' data-name='{{item.name}}' bindtap='clickbook'>
+          <image src='{{item.imgurl}}'></image>
+          <text>{{item.name}}</text>
+        </view>
+    </view>
+    <view wx:for="{{spush}}" wx:key="{{item.name}}">
+        <view class='book' data-url='{{item.url}}' data-name='{{item.name}}' bindtap='clickbook'>
+          <image src='{{item.imgurl}}'></image>
+          <text>{{item.name}}</text>
+        </view>
+    </view>
+    <view wx:for="{{novels}}" wx:key="{{item.name}}">
+        <view class='book' data-url='{{item.url}}' data-name='{{item.name}}' bindtap='clickbook'>
+          <image src='{{item.imgurl}}'></image>
+          <text>{{item.name}}</text>
+        </view>
+    </view>
+    <view wx:for="{{news}}" wx:key="{{item.name}}">
+        <view class='book' data-url='{{item.url}}' data-name='{{item.name}}' bindtap='clickbook'>
+          <image src='{{item.imgurl}}'></image>
           <text>{{item.name}}</text>
         </view>
     </view>

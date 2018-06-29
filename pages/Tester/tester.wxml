@@ -6,5 +6,5 @@
       </swiper-item>
     </block>
   </swiper>
-  <button class='bookbutton' bindtap='book'>看小说</button>
+  <button class='bookbutton' bindtap='book'>好玩又有趣</button>
 </view>

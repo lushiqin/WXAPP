@@ -17,7 +17,7 @@
 }
 
 .entrance {
-  margin-top: 180px;
+  margin-top: 150px;
 }
 .entrance button{
   color: olivedrab;

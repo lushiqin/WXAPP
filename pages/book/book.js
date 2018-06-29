@@ -7,10 +7,12 @@ Page({
    * 页面的初始数据
    */
   data: {
-    
   },
 
   lastc:function(options){
+    wx.pageScrollTo({
+      scrollTop: 0,
+    })
     var url = options.target.dataset.lastc
     wx.showLoading({
       title: '',
@@ -44,6 +46,9 @@ Page({
     })
   },
   nextc:function(options){
+    wx.pageScrollTo({
+      scrollTop: 0,
+    })
     var url = options.target.dataset.nextc
     wx.showLoading({
       title: '',

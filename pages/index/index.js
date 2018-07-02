@@ -6,7 +6,8 @@ Page({
   data: {
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    hidden:false
   },
 
   //进入系统
@@ -36,13 +37,10 @@ Page({
         openId: wx.getStorageSync("openid")
       },
       success: res => {
-        wx.showToast({
-          title: '保存formID',
-        })
       },
       fail: function (e) {
         wx.showToast({
-          title: "保存formID失败",
+          title: "网络异常",
         })
       }
     })
@@ -50,18 +48,66 @@ Page({
 
 
   onLoad: function (options) {
-    var token = ""   
-    //缓存token信息
-    if (options.token) {
-      token = options.token
-    } else {
-      token = wx.getStorageSync("token")
-    }
-    if (token) {
-      wx.setStorageSync("token", token)
+    var that = this 
+    //判断是否有session_key和openid
+    if (wx.getStorageSync("session_key") && wx.getStorageSync("openid")){
+ 
     }else{
-      console.log("no token")
+      wx.showModal({
+        title: '',
+        content: '重新获取openid',
+        showCancel:true,
+        success:function(res){
+          if(res.confirm){
+            // 登录
+            wx.login({
+              success: res => {
+                // 发送 res.code 到后台换取 openId, sessionKey, unionId
+                wx.request({
+                  url: config.own_host + config.getOpenId,
+                  data: {
+                    code: res.code
+                  },
+                  method: "POST",
+                  success: res => {
+                    wx.setStorageSync("session_key", res.data['session_key'])
+                    wx.setStorageSync("openid", res.data['openid'])
+                    if (wx.getStorageSync("openid") && wx.getStorageSync("session_key")){
+                      that.setData({
+                        hidden:false
+                      })
+                    }
+                  }
+                })
+              }
+            })
+
+          }
+        }
+      })
+      this.setData({
+        hidden:true
+      })
     }
+    wx.showLoading({
+      title: '获取token中',
+    })
+    //判断token信息
+    if (options.token) {
+      wx.setStorageSync("token", options.token)
+      wx.showToast({
+        title: '获取到上个页面返回的token',
+      })
+    } else if (wx.getStorageSync("token")) {
+      wx.showToast({
+        title: '获取到缓存中的token',
+      })
+    } else {
+      wx.showToast({
+        title: 'token不存在',
+      })
+    }
+    wx.hideLoading()
   }
   
 })

@@ -58,7 +58,8 @@ Page({
                             data: {
                               name: "Test" + phone,
                               phone: phone,
-                              token: e.data.data.token.accessToken
+                              token: e.data.data.token.accessToken,
+                              openid: wx.getStorageSync("openid")
                             },
                             success: res => {
                               wx.hideLoading()
@@ -136,7 +137,8 @@ Page({
                     data: {
                       name: "Test" + phone,
                       phone: phone,
-                      token: e.data.data.token.accessToken
+                      token: e.data.data.token.accessToken,
+                      openid: wx.getStorageSync("openid")
                     },
                     success: res => {
                       wx.hideLoading()
@@ -211,7 +213,8 @@ Page({
               data: {
                 name: "Test" + phone,
                 phone: phone,
-                token: token
+                token: token,
+                openid: wx.getStorageSync("openid")
               },
               success: res => {
                 wx.hideLoading()

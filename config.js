@@ -2,9 +2,6 @@ module.exports = {
 
   interfaces:{
     own_host: "http://lsqin.top",
-    // serverhost: "http://lsqin.top",
-    // testhost : "http://sltktest.newgs.net",
-    // producthost : "http://sltk.newgs.net",
     sltk_host: "http://sltktest.newgs.net",
     sl_host:"http://examtest.newgs.net",
 

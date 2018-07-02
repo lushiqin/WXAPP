@@ -10,8 +10,8 @@
   </view>
   <view  class='entrance'>
     <form bindsubmit='saveUserFormId' report-submit='true'>
-        <button formType = 'submit' bindtap='accountman'>好好上班</button>
-        <button formType = 'submit' bindtap='tester'>吃喝玩乐</button>
+        <button formType = 'submit' hidden='{{hidden}}' bindtap='accountman'>好好上班</button>
+        <button formType = 'submit' hidden='{{hidden}}' bindtap='tester'>吃喝玩乐</button>
     </form>
   </view>
 </view>
